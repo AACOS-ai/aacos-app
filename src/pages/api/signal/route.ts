@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     }
 
     // --- אימות + סניטיזציה קשיחה ---
-    let body: any;
+    let body: unknown;
     try {
       body = await req.json();
     } catch {

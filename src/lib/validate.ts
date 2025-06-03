@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ZodSchema } from "zod";
+import { ZodSchema, infer as Infer } from "zod";
 
 // פונקציית עטיפה גנרית לכל סכמת Zod (המתאימה לכל handler)
-export function withValidation<T extends ZodSchema<any>>(
+export function withValidation<T extends ZodSchema>(
   schema: T,
-  handler: (req: NextRequest, parsedBody: any) => Promise<Response>
+  handler: (req: NextRequest, parsedBody: Infer<T>) => Promise<Response>
 ) {
   return async function(req: NextRequest) {
-    let body = {};
+    let body: unknown = {};
     try {
       // קולט JSON, אם POST/PUT
       if (["POST", "PUT", "PATCH"].includes(req.method)) {

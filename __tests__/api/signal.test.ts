@@ -2,6 +2,7 @@
 import { POST, GET } from "@/app/api/signal/route";
 import { purify } from "@/lib/purify";
 import { SignalSchema } from "@/lib/signalSchema";
+import { sql } from "@vercel/postgres";
 
 // ✅ Unit tests for purify
 describe("purify", () => {
@@ -41,11 +42,18 @@ describe("SignalSchema", () => {
 });
 
 // ✅ Mock @vercel/postgres
+type Tx = {
+  sql: jest.Mock;
+  begin: jest.Mock;
+  commit: jest.Mock;
+  rollback: jest.Mock;
+};
+
 jest.mock("@vercel/postgres", () => {
   const mockRows = [{ count: "0" }];
   return {
     sql: Object.assign(jest.fn(() => Promise.resolve({ rows: mockRows })), {
-      begin: jest.fn(async (cb: any) => {
+      begin: jest.fn(async (cb: (tx: Tx) => void) => {
         await cb({
           sql: jest.fn(),
           begin: jest.fn(),
@@ -58,7 +66,11 @@ jest.mock("@vercel/postgres", () => {
 });
 
 // Helper for mock request
-const mockRequest = (method: string, body: any = {}, ip = "1.2.3.4") => {
+const mockRequest = (
+  method: string,
+  body: Record<string, unknown> = {},
+  ip = "1.2.3.4"
+): Request => {
   const headers = new Headers();
   headers.set("x-forwarded-for", ip);
 
@@ -66,7 +78,7 @@ const mockRequest = (method: string, body: any = {}, ip = "1.2.3.4") => {
     method,
     headers,
     json: async () => body,
-  } as any;
+  } as unknown as Request;
 };
 
 // ✅ API route tests
@@ -94,7 +106,6 @@ describe("/api/signal route", () => {
   });
 
   it("blocks requests above rate-limit", async () => {
-    const { sql } = require("@vercel/postgres");
     sql.mockResolvedValueOnce({ rows: [{ count: "1" }] }); // simulate rate limit
 
     const res = await POST(

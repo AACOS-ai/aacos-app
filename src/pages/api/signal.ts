@@ -9,11 +9,19 @@ function getClientKey(req: Request) {
   return req.headers.get("x-forwarded-for") || req.headers.get("host") || "unknown";
 }
 
-function validateSignal(data: any) {
+interface SignalInput {
+  text: string;
+  color: string;
+  description: string;
+}
+
+function validateSignal(data: unknown): data is SignalInput {
+  if (typeof data !== "object" || data === null) return false;
+  const obj = data as Record<string, unknown>;
   return (
-    typeof data?.text === "string" &&
-    typeof data?.color === "string" &&
-    typeof data?.description === "string"
+    typeof obj.text === "string" &&
+    typeof obj.color === "string" &&
+    typeof obj.description === "string"
   );
 }
 
@@ -44,7 +52,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Rate limit: Max 25/hour" }, { status: 429 });
     }
 
-    const body = await req.json();
+    const body: unknown = await req.json();
     if (!validateSignal(body)) {
       return NextResponse.json({ error: "Invalid signal format" }, { status: 400 });
     }

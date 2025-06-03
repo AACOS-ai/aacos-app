@@ -1,6 +1,7 @@
 // __tests__/api/rate-limit.test.ts
 import { POST } from "@/app/api/signal/route";
 import { NextRequest } from "next/server";
+import { sql } from "@vercel/postgres";
 
 // Mock sql
 jest.mock("@vercel/postgres", () => ({
@@ -14,15 +15,14 @@ describe("Rate limiting logic", () => {
   const headers = new Headers();
   headers.set("x-forwarded-for", "123.45.67.89");
 
-  const mockRequest = (body: any = {}) =>
+  const mockRequest = (body: Record<string, unknown> = {}) =>
     new NextRequest("http://localhost/api/signal", {
       method: "POST",
       headers,
       body: JSON.stringify(body),
-    } as any);
+    } as RequestInit);
 
   it("blocks requests within 30 seconds window", async () => {
-    const { sql } = require("@vercel/postgres");
 
     // Simulate 1 recent request (within 30s)
     sql.default.mockResolvedValueOnce({ rows: [{ count: "1" }] });
@@ -40,7 +40,6 @@ describe("Rate limiting logic", () => {
   });
 
   it("blocks after 25 requests per hour", async () => {
-    const { sql } = require("@vercel/postgres");
 
     // Allow through 30s window
     sql.default
@@ -60,7 +59,6 @@ describe("Rate limiting logic", () => {
   });
 
   it("allows signal if under limit", async () => {
-    const { sql } = require("@vercel/postgres");
     sql.default
       .mockResolvedValueOnce({ rows: [{ count: "0" }] }) // 30s check
       .mockResolvedValueOnce({ rows: [{ count: "5" }] }); // hourly check (מתחת ל-25)

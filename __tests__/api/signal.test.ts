@@ -3,6 +3,7 @@ import { POST, GET } from "@/app/api/signal/route";
 import { purify } from "@/lib/purify";
 import { SignalSchema } from "@/lib/signalSchema";
 import { sql } from "@vercel/postgres";
+import { describe, it, expect, jest } from "@jest/globals";
 
 // ✅ Unit tests for purify
 describe("purify", () => {

@@ -48,7 +48,7 @@ export default function Home() {
 
       {/* TESTIMONIAL */}
       <blockquote className="italic text-muted-foreground mt-8 border-l-4 border-primary pl-4 max-w-lg text-sm text-center sm:text-left">
-        "The most intuitive signal-navigation AI ever built. I actually feel the difference."
+        &quot;The most intuitive signal-navigation AI ever built. I actually feel the difference.&quot;
         <span className="block mt-2 text-xs text-right">— Early User</span>
       </blockquote>
 

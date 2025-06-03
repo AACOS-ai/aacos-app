@@ -2,6 +2,7 @@
 import { POST } from "@/app/api/signal/route";
 import { NextRequest } from "next/server";
 import { sql } from "@vercel/postgres";
+import { describe, it, expect, jest } from "@jest/globals";
 
 // Mock sql
 jest.mock("@vercel/postgres", () => ({

@@ -8,6 +8,7 @@ import { useSignalStore } from "@/state/useSignalStore";
 import React from "react";
 import "@testing-library/jest-dom";
 import { act } from "react-dom/test-utils";
+import { describe, it, expect, beforeEach, jest } from "@jest/globals";
 
 jest.useFakeTimers();
 

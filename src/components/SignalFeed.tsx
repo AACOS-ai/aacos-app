@@ -82,7 +82,7 @@ export default function SignalFeed() {
     }, signal.duration);
 
     return () => clearTimeout(timer);
-  }, [index]);
+  }, [index, addSignal, signal.duration]);
 
   async function sendSignal(signal: { text: string; color: string; description?: string }) {
     try {

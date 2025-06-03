@@ -19,7 +19,7 @@ export async function getRateLimitStatus(ipHash: string, now: number) {
   `;
   const hourlyCount = Number(hourly.rows[0].count);
 
-  if (hourlyCount >= 25) {
+  if (hourlyCount >= RATE_LIMIT_HOURLY) {
     return { block: true, message: "Rate limit: Max 25/hour" };
   } else if (hourlyCount >= WARNING_HOURLY) {
     return { warn: true, message: "You've sent many signals. Please wait." };

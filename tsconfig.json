@@ -41,6 +41,7 @@
     "**/*.tsx",
     "next-env.d.ts",
     "src/__tests__/**/*",
+    "__tests__/**/*",
     ".next/types/**/*.ts"
   ],
   "exclude": [

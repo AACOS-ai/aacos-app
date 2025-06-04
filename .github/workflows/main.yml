@@ -31,7 +31,6 @@ jobs:
       - name: Run tests
         run: npm test
 
-  # Deploy only from main branch after successful build/test
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
@@ -43,9 +42,7 @@ jobs:
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ s6722-0499-7385 }}
+          vercel-token: ${{ sfyIhgXkQ3gBKKfwpenkOmqR2 }}
+          vercel-org-id: ${{ team_GwHAnffUsSPUQ5TVM08qG2PA }}
+          vercel-project-id: ${{ prj_CDPBGhbW9yiPTFc4KzA27SYvj3wh }}
           vercel-args: '--prod'
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

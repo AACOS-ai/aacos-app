@@ -2,7 +2,7 @@
 
 import SignalTransmitter from "@/components/SignalTransmitter";
 
-export default function Home() {
+export default function Page() {
   return (
     <main className="min-h-screen bg-black text-white px-6 py-12 flex flex-col items-center">
       {/* כותרת על */}

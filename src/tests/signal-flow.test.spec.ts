@@ -3,7 +3,7 @@
  */
 
 import { render, screen, waitFor } from "@testing-library/react";
-import SignalFeed from "@/components/SignalFeed";
+import SignalFeed from "components/SignalFeed";
 import { useSignalStore } from "@/state/useSignalStore";
 import React from "react";
 import "@testing-library/jest-dom";

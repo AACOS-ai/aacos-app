@@ -1,6 +1,6 @@
 "use client";
 
-import SignalTransmitter from "@/components/SignalTransmitter";
+import SignalTransmitter from "components/SignalTransmitter";
 
 export default function Page() {
   return (

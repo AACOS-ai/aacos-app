@@ -1,30 +1,40 @@
-type SignalEntry = {
-  text: string;
-  timestamp: number;
-};
+// components/SignalRecorder.jsx
+"use client";
+import { useContext, useState } from "react";
+import { SignalsContext } from "./SignalsContext";
+import { toast } from "react-hot-toast";
 
-class SignalRecorder {
-  private _log: SignalEntry[] = [];
+export default function SignalRecorder() {
+  const [record, setRecord] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { saveRecordingToServer } = useContext(SignalsContext);
 
-  record(signalText: string) {
-    this._log.push({
-      text: signalText,
-      timestamp: Date.now(),
-    });
+  async function save() {
+    setLoading(true);
+    await saveRecordingToServer(record);
+    toast.success("הקלטה נשמרה!");
+    setRecord("");
+    setLoading(false);
   }
 
-  get history(): SignalEntry[] {
-    return [...this._log];
-  }
-
-  get last(): SignalEntry | undefined {
-    return this._log[this._log.length - 1];
-  }
-
-  clear() {
-    this._log = [];
-  }
+  return (
+    <div>
+      <textarea
+        className="w-full p-2 rounded mb-2 text-black"
+        rows={2}
+        value={record}
+        onChange={e => setRecord(e.target.value)}
+        placeholder="תעד תדר/הערה/הקלטה (אפשר דמיון לאודיו)"
+        dir="rtl"
+        disabled={loading}
+      />
+      <button
+        className="bg-primary text-white py-2 px-5 rounded font-bold"
+        onClick={save}
+        disabled={loading || !record.trim()}
+      >
+        {loading ? "שומר..." : "שמור הקלטה"}
+      </button>
+    </div>
+  );
 }
-
-// ייצוא אובייקט גלובלי יחיד
-export const signalRecorder = new SignalRecorder();

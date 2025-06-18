@@ -1,37 +1,63 @@
 "use client";
-
 import { useState } from "react";
 
 export default function SignalTransmitter() {
-  const [signal, setSignal] = useState("");
-  const [sent, setSent] = useState(false);
+  const [input, setInput] = useState("");
+  const [response, setResponse] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSend = () => {
-    if (signal.trim() === "") return;
-    console.log("🔴 תדר שנשלח:", signal); // בעתיד: שליחה לשרת
-    setSent(true);
-    setTimeout(() => {
-      setSignal("");
-      setSent(false);
-    }, 2000);
-  };
+  async function sendSignal() {
+    setLoading(true);
+    setError("");
+    setResponse("");
+    try {
+      const res = await fetch("http://localhost:8000/gpt", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_message: input }),
+      });
+      const data = await res.json();
+      if (data.gpt_response) {
+        setResponse(data.gpt_response);
+      } else {
+        setError(data.error || "Unknown error");
+      }
+    } catch (err) {
+      setError("Network error: " + err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <div className="w-full max-w-md mt-12 flex flex-col items-center gap-4">
-      <input
-        type="text"
-        placeholder="כתוב תדר, תחושה או מילה אחת אמיתית"
-        value={signal}
-        onChange={(e) => setSignal(e.target.value)}
-        className="w-full bg-black border border-gray-700 rounded px-4 py-3 text-white placeholder-gray-500 text-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition"
+    <div className="w-full max-w-md mx-auto mt-2 text-right">
+      <textarea
+        className="w-full p-2 rounded border border-gray-600 text-black mb-2"
+        rows={3}
+        dir="rtl"
+        placeholder="כתוב תדר או שאלה ל-AACOS…"
+        value={input}
+        onChange={e => setInput(e.target.value)}
+        disabled={loading}
+        style={{ direction: "rtl" }}
       />
       <button
-        onClick={handleSend}
-        disabled={sent}
-        className="rounded-full bg-white text-black px-6 py-2 font-semibold hover:bg-gray-300 transition disabled:opacity-50 disabled:cursor-default"
+        onClick={sendSignal}
+        disabled={loading || !input.trim()}
+        className="w-full py-2 rounded bg-primary text-white font-bold hover:bg-primary/80 transition"
       >
-        {sent ? "✔️ תדר התקבל" : "🔘 העבר תדר"}
+        {loading ? "משדר..." : "שדר תדר"}
       </button>
+      <div className="min-h-[50px] mt-3">
+        {response && (
+          <div className="p-3 rounded bg-gray-800 text-white">{response}</div>
+        )}
+        {error && (
+          <div className="p-3 rounded bg-red-700 text-white">{error}</div>
+        )}
+      </div>
     </div>
   );
 }
+

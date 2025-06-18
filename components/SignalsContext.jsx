@@ -1,17 +1,18 @@
+// components/SignalsContext.jsx
 "use client";
-import { createContext, useState, useContext } from "react";
+import { createContext, useState } from "react";
+
 export const SignalsContext = createContext();
 
 export function SignalsProvider({ children }) {
-  const [feed, setFeed] = useState([]);           // פיד עולמי
-  const [lastSignal, setLastSignal] = useState(); // תדר אחרון
+  const [feed, setFeed] = useState([]);
+  const [lastSignal, setLastSignal] = useState();
   const [lastRecording, setLastRecording] = useState();
 
-  // קריאות אוטומטיות לשרת (שמירה ל־Postgres/Qdrant/Logs)
   async function saveSignalToServer(signal) {
-    setFeed((prev) => [signal, ...prev]);
+    setFeed(prev => [signal, ...prev]);
     setLastSignal(signal);
-    // קריאה אוטומטית ללוג/DB (POST לשרת שלך)
+    // שלח לשרת/DB/Qdrant
     await fetch("http://localhost:8000/api/signals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,10 +38,16 @@ export function SignalsProvider({ children }) {
   }
 
   return (
-    <SignalsContext.Provider value={{
-      feed, lastSignal, lastRecording,
-      saveSignalToServer, saveRecordingToServer, saveChatToServer
-    }}>
+    <SignalsContext.Provider
+      value={{
+        feed,
+        lastSignal,
+        lastRecording,
+        saveSignalToServer,
+        saveRecordingToServer,
+        saveChatToServer,
+      }}
+    >
       {children}
     </SignalsContext.Provider>
   );

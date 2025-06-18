@@ -1,10 +1,14 @@
+// components/GptChatDemo.jsx
 "use client";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { SignalsContext } from "./SignalsContext";
+import { toast } from "react-hot-toast";
 
 export default function GptChatDemo() {
   const [input, setInput] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
+  const { saveChatToServer } = useContext(SignalsContext);
 
   async function askGpt() {
     setLoading(true);
@@ -16,7 +20,10 @@ export default function GptChatDemo() {
         body: JSON.stringify({ user_message: input }),
       });
       const data = await res.json();
-      setResponse(data.gpt_response || data.error);
+      const answer = data.gpt_response || data.error;
+      setResponse(answer);
+      await saveChatToServer({ question: input, answer });
+      toast.success("שיחה נשמרה!");
     } catch (err) {
       setResponse("Network error: " + err.message);
     }

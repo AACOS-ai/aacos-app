@@ -1,6 +1,5 @@
 "use client";
-
-import SignalTransmitter from "components/SignalTransmitter";
+import GptChatDemo from "components/GptChatDemo";
 
 export default function Page() {
   return (
@@ -100,7 +99,7 @@ export default function Page() {
         </div>
       </section>
 
-      {/* CTA עם שידור תדר */}
+      {/* CTA עם הצ'אט החדש */}
       <section className="max-w-xl text-center mb-12">
         <p className="text-lg text-primary font-semibold mb-2">🚪 הצטרף אלינו:</p>
         <p className="text-base text-gray-300 mb-6">
@@ -112,7 +111,7 @@ export default function Page() {
           <div className="text-sm text-muted-foreground mb-2">
             או פשוט שדר תדר ראשוני ↓
           </div>
-          <SignalTransmitter />
+          <GptChatDemo />
         </div>
         <a
           href="/join"

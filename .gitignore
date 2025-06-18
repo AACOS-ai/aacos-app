@@ -106,3 +106,4 @@ firebase-debug.log
 .vercel/output/
 
 # ** do not upload any secrets or credentials! **
+,env

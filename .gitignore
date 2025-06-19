@@ -47,6 +47,8 @@ pnpm-debug.log*
 
 # env/config
 .env
+backend/ .end
+frontend/ .env
 .env.*
 !.env.example
 .next.env

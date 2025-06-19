@@ -1,19 +1,16 @@
-// tailwind.config.ts
-
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}"
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        primary: "var(--primary)",
-        muted: "var(--muted)",
+          primary: "var(--primary)",
+          muted: "var(--muted)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "sans-serif"],
@@ -23,5 +20,3 @@ const config: Config = {
   },
   plugins: [],
 };
-
-export default config;

@@ -1,6 +1,5 @@
-// app/layout.tsx
+// app/layout.jsx
 
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,23 +13,20 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+// שים לב: אין טיפוסי TypeScript בקובץ הזה. כל הפרופס מוכנסים כמו ב־JSX טהור.
+export const metadata = {
   title: "AACOS",
   description: "Advanced Consciousness Operating System",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="he" dir="rtl">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
-      >
-        {children}
-      </body>
+    <body
+    className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
+    >
+    {children}
+    </body>
     </html>
   );
 }

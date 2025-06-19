@@ -1,0 +1,66 @@
+/* app/globals.css */
+
+/* Tailwind base (קריטי להכללת הגדרות Tailwind) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* תמיכה ב-RTL ברמת HTML */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+/* התאמת Scrollbar (רשות) */
+::-webkit-scrollbar {
+  width: 10px;
+  background: #101014;
+}
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 6px;
+}
+
+/* טיפוגרפיה בסיסית */
+body {
+  font-family: var(--font-geist-sans, sans-serif);
+  background: var(--background, #000);
+  color: var(--foreground, #fff);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* קישורים */
+a {
+  color: var(--primary, #00eaff);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #fff;
+}
+
+/* התאמת selection */
+::selection {
+  background: var(--primary, #00eaff);
+  color: #000;
+}
+
+/* ניפוח הכותרות (לא חובה, רק אסתטי) */
+h1, h2, h3, h4 {
+  font-family: var(--font-geist-sans, sans-serif);
+  font-weight: 400;
+}
+
+/* כפתורים בסיסיים */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Utility: נטרול outline לחיצה */
+button:focus, input:focus, textarea:focus {
+  outline: 2px solid var(--primary, #00eaff);
+  outline-offset: 2px;
+}

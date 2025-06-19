@@ -1,18 +1,17 @@
 // components/SignalsContext.jsx
 "use client";
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const SignalsContext = createContext();
 
 export function SignalsProvider({ children }) {
   const [feed, setFeed] = useState([]);
-  const [lastSignal, setLastSignal] = useState();
-  const [lastRecording, setLastRecording] = useState();
+  const [lastSignal, setLastSignal] = useState(null);
+  const [lastRecording, setLastRecording] = useState(null);
 
   async function saveSignalToServer(signal) {
     setFeed(prev => [signal, ...prev]);
     setLastSignal(signal);
-    // שלח לשרת/DB/Qdrant
     await fetch("http://localhost:8000/api/signals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -39,16 +38,16 @@ export function SignalsProvider({ children }) {
 
   return (
     <SignalsContext.Provider
-      value={{
-        feed,
-        lastSignal,
-        lastRecording,
-        saveSignalToServer,
-        saveRecordingToServer,
-        saveChatToServer,
-      }}
+    value={{
+      feed,
+      lastSignal,
+      lastRecording,
+      saveSignalToServer,
+      saveRecordingToServer,
+      saveChatToServer,
+    }}
     >
-      {children}
+    {children}
     </SignalsContext.Provider>
   );
 }

@@ -1,0 +1,22 @@
+[
+  {
+    "role": "user",
+    "content": "hey",
+    "timestamp": "11:47 PM"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello there. How are you feeling today? If you'd like, we can gently explore any thoughts or emotions that are present for you right now.",
+    "timestamp": "11:47 PM"
+  },
+  {
+    "role": "user",
+    "content": "do you remember my name?",
+    "timestamp": "11:47 PM"
+  },
+  {
+    "role": "assistant",
+    "content": "I’m sorry, I don’t have the ability to remember names or past interactions. But I'm here now, ready to support you. How would you like to be addressed as we explore your inner world together?",
+    "timestamp": "11:47 PM"
+  }
+]

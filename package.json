@@ -1,0 +1,24 @@
+{
+  "name": "chatapp",
+  "type": "commonjs",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "electron": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.5.2",
+    "dotenv": "^16.5.0",
+    "electron": "^36.5.0",
+    "lucide-react": "^0.518.0",
+    "openai": "^4.104.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "vite": "^6.3.5"
+  }
+}

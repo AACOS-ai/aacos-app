@@ -1,0 +1,22 @@
+[
+  {
+    "role": "user",
+    "content": "Hey ",
+    "timestamp": "11:57 PM"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello, Dave. How are you feeling today? What brings you to explore your inner world?",
+    "timestamp": "11:57 PM"
+  },
+  {
+    "role": "user",
+    "content": "maybe but how about we small talk at first?",
+    "timestamp": "11:58 PM"
+  },
+  {
+    "role": "assistant",
+    "content": "Of course, Dave. We can ease into things at your own pace. What's been on your mind lately, or is there something simple you'd like to share?",
+    "timestamp": "11:58 PM"
+  }
+]

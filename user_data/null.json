@@ -1,0 +1,22 @@
+[
+  {
+    "role": "user",
+    "content": "Add new user",
+    "timestamp": "11:34 PM"
+  },
+  {
+    "role": "assistant",
+    "content": "Welcome to this sacred space of self-discovery and healing. If there is a specific area of your life or emotions you'd like to explore, I'm here to gently guide you through that journey. Please feel free to share what's on your heart, and we'll begin this process of reflection and understanding together.",
+    "timestamp": "11:34 PM"
+  },
+  {
+    "role": "user",
+    "content": "do you know my name?",
+    "timestamp": "11:34 PM"
+  },
+  {
+    "role": "assistant",
+    "content": "I don't know your name, but I'm here to listen and support you. If you’d like to share your name, you’re welcome to do so, or you can remain anonymous. What feels comfortable for you?",
+    "timestamp": "11:34 PM"
+  }
+]

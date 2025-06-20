@@ -1,53 +1,30 @@
-// components/SignalsContext.jsx
+// components/SignalFeed.jsx
 "use client";
-import React, { createContext, useState } from "react";
+import { useContext } from "react";
+import { SignalsContext } from "./SignalsContext";
 
-export const SignalsContext = createContext();
-
-export function SignalsProvider({ children }) {
-  const [feed, setFeed] = useState([]);
-  const [lastSignal, setLastSignal] = useState(null);
-  const [lastRecording, setLastRecording] = useState(null);
-
-  async function saveSignalToServer(signal) {
-    setFeed(prev => [signal, ...prev]);
-    setLastSignal(signal);
-    await fetch("http://localhost:8000/api/signals", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "signal", signal }),
-    });
-  }
-
-  async function saveRecordingToServer(recording) {
-    setLastRecording(recording);
-    await fetch("http://localhost:8000/api/signals", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "recording", recording }),
-    });
-  }
-
-  async function saveChatToServer(chat) {
-    await fetch("http://localhost:8000/api/signals", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "chat", chat }),
-    });
-  }
+export default function SignalFeed() {
+  const { feed } = useContext(SignalsContext);
 
   return (
-    <SignalsContext.Provider
-    value={{
-      feed,
-      lastSignal,
-      lastRecording,
-      saveSignalToServer,
-      saveRecordingToServer,
-      saveChatToServer,
-    }}
-    >
-    {children}
-    </SignalsContext.Provider>
+    <div className="w-full bg-gray-900 rounded-lg p-4 mb-6 min-h-[120px]">
+    {feed.length === 0 ? (
+      <div className="text-center text-gray-400">אין עדיין תדרים. תהיה הראשון!</div>
+    ) : (
+      <ul className="space-y-2">
+      {feed.map((signal, idx) => (
+        <li
+        key={idx}
+        className="bg-gray-800 rounded p-3 text-right"
+        dir="rtl"
+        >
+        {typeof signal === "string"
+          ? signal
+          : JSON.stringify(signal, null, 2)}
+          </li>
+      ))}
+      </ul>
+    )}
+    </div>
   );
 }

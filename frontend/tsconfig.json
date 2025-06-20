@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "ES2021",
-    "lib": ["DOM", "ES2021"],
+    "lib": [
+      "DOM",
+      "ES2021"
+    ],
     "allowJs": true,
     "checkJs": false,
     "skipLibCheck": true,
@@ -11,7 +14,27 @@
     "jsx": "preserve",
     "noEmit": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "strict": false,
+    "incremental": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
-  "exclude": ["node_modules", "dist", ".next"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    ".next"
+  ],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

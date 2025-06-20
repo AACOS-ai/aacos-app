@@ -1,6 +1,6 @@
 // components/SignalsContext.jsx
 "use client";
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 export const SignalsContext = createContext();
 
@@ -12,7 +12,7 @@ export function SignalsProvider({ children }) {
   async function saveSignalToServer(signal) {
     setFeed(prev => [signal, ...prev]);
     setLastSignal(signal);
-    await fetch("http://localhost:8000/api/signals", {
+    await fetch("/api/signals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "signal", signal }),
@@ -21,7 +21,7 @@ export function SignalsProvider({ children }) {
 
   async function saveRecordingToServer(recording) {
     setLastRecording(recording);
-    await fetch("http://localhost:8000/api/signals", {
+    await fetch("/api/signals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "recording", recording }),
@@ -29,7 +29,7 @@ export function SignalsProvider({ children }) {
   }
 
   async function saveChatToServer(chat) {
-    await fetch("http://localhost:8000/api/signals", {
+    await fetch("/api/signals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type: "chat", chat }),
